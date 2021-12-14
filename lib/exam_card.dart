@@ -18,11 +18,14 @@ class ExamCard extends StatelessWidget {
           leading: Icon(Icons.school),
           title: Text(
             _exam.getName(),
-            style: TextStyle(fontSize: 20),
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           subtitle: Container(
             child:
-                Text('Date: ' + _exam.getDate() + ', Time: ' + _exam.getTime()),
+                Text(
+                    'Date: ' + _exam.getDate() + ', Time: ' + _exam.getTime(),
+                  style: TextStyle(color: Colors.grey),
+                ),
             padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
           ),
         ),
