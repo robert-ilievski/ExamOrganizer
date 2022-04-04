@@ -33,7 +33,8 @@ class ExamForm extends StatelessWidget {
             padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
             child: TextFormField(
               controller: dateController,
-              decoration: InputDecoration(hintText: "Exam date"),
+              decoration:
+                  InputDecoration(hintText: "Exam date in format yyyy-mm-dd"),
               validator: (date) {
                 if (date == null || date.isEmpty) {
                   return 'Exam date is required';

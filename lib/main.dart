@@ -3,6 +3,8 @@ import 'package:exam_organizer/exam_form.dart';
 import 'package:flutter/material.dart';
 
 import 'exam.dart';
+import 'exam_calendar.dart';
+import 'login.dart';
 
 void main() {
   runApp(MyApp());
@@ -32,61 +34,71 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('ExamOrganizer 181523'),
-          actions: [
-            IconButton(
-              onPressed: () {
-                print('Implement navigation to a new page.');
-              },
-              icon: Icon(Icons.add_to_photos_outlined),
-            ),
-          ],
-        ),
-        body: Column(
-          children: [
-            Row(
-              children: [
-                Container(
-                  padding: EdgeInsets.fromLTRB(5, 20, 0, 10),
-                  child: Text(
-                    "Add Exam",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child:
-                      ExamForm(onAddExam: onAddExam),
-                )
-              ],
-            ),
-            Row(
-              children: [
-                Container(
-                  padding: EdgeInsets.fromLTRB(5, 20, 0, 10),
-                  child: Text(
-                    "Scheduled Exams",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ),
-              ],
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: exams.length,
-                itemBuilder: (context, index) {
-                  return ExamCard(exams[index]);
+      routes: {
+        '/login': (context) => LoginScreen(),
+        '/home': (context) => Scaffold(
+          appBar: AppBar(
+            title: Text('ExamOrganizer 181523'),
+            actions: [
+              IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CalendarScreen(exams),
+                    ),
+                    // arguments: {'onAddAccount': onAddAccount},
+                  );
                 },
+                icon: Icon(Icons.calendar_month),
               ),
-            )
-          ],
+            ],
+          ),
+          body: Column(
+            children: [
+              Row(
+                children: [
+                  Container(
+                    padding: EdgeInsets.fromLTRB(5, 20, 0, 10),
+                    child: Text(
+                      "Add Exam",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child:
+                    ExamForm(onAddExam: onAddExam),
+                  )
+                ],
+              ),
+              Row(
+                children: [
+                  Container(
+                    padding: EdgeInsets.fromLTRB(5, 20, 0, 10),
+                    child: Text(
+                      "Scheduled Exams",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                ],
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: exams.length,
+                  itemBuilder: (context, index) {
+                    return ExamCard(exams[index]);
+                  },
+                ),
+              )
+            ],
+          ),
         ),
-      ),
+      },
+      initialRoute: "/login",
     );
   }
 }
